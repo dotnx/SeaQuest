@@ -13,6 +13,10 @@ const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 @onready var reload_timer = $ReloadTimer
 @onready var sprite = $AnimatedSprite2D
 
+func _ready():
+	GameEvent.connect("full_crew_oxygen_refuel", Callable(self, "_full_crew_oxygen_refuel"))
+	GameEvent.connect("less_people_oxygen_refuel", Callable(self, "_less_people_oxygen_refuel"))
+
 func _process(delta):
 	if state == "default":
 		process_movement_input()
@@ -58,3 +62,9 @@ func movement():
 
 func _on_reload_timer_timeout():
 	can_shoot = true
+
+func _full_crew_oxygen_refuel():
+	state = "people_refuel"
+
+func _less_people_oxygen_refuel():
+	state = "less_people_refuel"

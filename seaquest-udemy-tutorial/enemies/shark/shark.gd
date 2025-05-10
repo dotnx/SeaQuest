@@ -9,3 +9,7 @@ var velocity = Vector2(1, 0)
 func _physics_process(delta):
 	velocity.y = sin(global_position.x * MOVEMENT_FREQUENCY) * MOVEMENT_AMPLITUDE
 	global_position += velocity * SPEED * delta
+
+func _on_hitbox_area_entered(area):
+	area.get_parent().queue_free()
+	queue_free()

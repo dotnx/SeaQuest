@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhq37rpcnl1mi"]
+[gd_scene load_steps=9 format=3 uid="uid://bhq37rpcnl1mi"]
 
 [ext_resource type="Texture2D" uid="uid://bff2rrpiqdg2s" path="res://player/player.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://clbnyqnuf0mm5" path="res://player/player.gd" id="2_rkbax"]
@@ -39,12 +39,21 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Player" type="AnimatedSprite2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
+size = Vector2(13, 7)
+
+[node name="Player" type="Area2D" groups=["Player"]]
+script = ExtResource("2_rkbax")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_g6k8r")
 autoplay = "default"
 frame_progress = 0.189464
 offset = Vector2(-1, -2)
-script = ExtResource("2_rkbax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_rkbax")
 
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.15

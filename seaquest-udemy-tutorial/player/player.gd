@@ -4,6 +4,7 @@ var velocity = Vector2(0, 0)
 var can_shoot = true
 
 const SPEED = Vector2(125, 90)
+const OXYGEN_DECREASE_SPEED = 2.5
 const BULLET_OFFSET = 7
 const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 
@@ -33,6 +34,8 @@ func _process(delta):
 		
 		reload_timer.start()
 		can_shoot = false
+	
+	Global.oxygen_level -= OXYGEN_DECREASE_SPEED * delta
 
 func _physics_process(delta):
 	global_position += velocity * SPEED * delta

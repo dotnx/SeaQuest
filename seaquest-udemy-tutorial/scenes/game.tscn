@@ -1,15 +1,47 @@
-[gd_scene load_steps=9 format=3 uid="uid://b515l5apptd5v"]
+[gd_scene load_steps=16 format=3 uid="uid://b515l5apptd5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://uwr0cei80stn" path="res://user_interface/people-count/people_count.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://cic3ajpj5ybsk" path="res://enemies/enemy_spawner/enemy_spawner.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://n06l515vp5t7" path="res://scenes/game/oxygen_zone.gd" id="3_u5sy4"]
+[ext_resource type="Shader" uid="uid://cudr1n6mugr81" path="res://scenes/environment/water_shader.gdshader" id="4_gee14"]
 [ext_resource type="Texture2D" uid="uid://ckpolmhq3w8ai" path="res://user_interface/oxygen-bar/oxygen_bar_under.png" id="4_iywne"]
 [ext_resource type="Texture2D" uid="uid://d0rd57id7512g" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://dka0o6qvma16" path="res://user_interface/oxygen-bar/oxygen_bar.gd" id="6_p57ef"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(262, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0tnpc"]
+shader = ExtResource("4_gee14")
+shader_parameter/strength = Vector2(1.25, 1.25)
+shader_parameter/speed = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtaks"]
+size = Vector2(400, 4)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_gee14"]
+size = Vector2(400, 35)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_0tnpc"]
+size = Vector2(400, 40)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_kvpfn"]
+size = Vector2(400, 75)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_dinhu"]
+size = Vector2(400, 75)
+subdivide_width = 8
+subdivide_depth = 1
 
 [node name="Game" type="Node"]
 
@@ -25,6 +57,46 @@ script = ExtResource("3_u5sy4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OxygenZone"]
 shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Environment"]
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 39)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_vtaks")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0.0470588, 0.901961, 0.94902, 1)
+z_index = -11
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 55)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_gee14")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0, 0.596078, 0.858824, 1)
+z_index = -11
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 65)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_0tnpc")
+
+[node name="MeshInstance2D4" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0.117647, 0.341176, 0.611765, 1)
+z_index = -12
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 107)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_kvpfn")
+
+[node name="MeshInstance2D5" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0.12549, 0.207843, 0.384314, 1)
+z_index = -13
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 178)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_dinhu")
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 

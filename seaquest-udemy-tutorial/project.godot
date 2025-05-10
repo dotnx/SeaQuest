@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 [autoload]
 
 Global="*res://global/global.gd"
+GameEvent="*res://global/game_event.gd"
 
 [display]
 

@@ -43,6 +43,7 @@ animations = [{
 sprite_frames = SubResource("SpriteFrames_g6k8r")
 autoplay = "default"
 frame_progress = 0.189464
+offset = Vector2(-1, -2)
 script = ExtResource("2_rkbax")
 
 [node name="ReloadTimer" type="Timer" parent="."]

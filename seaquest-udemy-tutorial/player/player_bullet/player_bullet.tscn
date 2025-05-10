@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://g5l8kuyx5neh"]
+
+[ext_resource type="Texture2D" uid="uid://useogs52hhb1" path="res://player/player_bullet/player_bullet.png" id="1_bflbm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it4l8"]
+atlas = ExtResource("1_bflbm")
+region = Rect2(0, 0, 18, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wty2e"]
+atlas = ExtResource("1_bflbm")
+region = Rect2(18, 0, 18, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3paff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it4l8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wty2e")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="PlayerBullet" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_3paff")
+autoplay = "default"
+offset = Vector2(-0.5, 0)

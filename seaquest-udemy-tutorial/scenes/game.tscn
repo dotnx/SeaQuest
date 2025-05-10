@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b515l5apptd5v"]
+[gd_scene load_steps=3 format=3 uid="uid://b515l5apptd5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://cgx7mwwr35ve7" path="res://person/person.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://cic3ajpj5ybsk" path="res://enemies/enemy_spawner/enemy_spawner.tscn" id="3_lnu2h"]
 
 [node name="Game" type="Node"]
@@ -11,6 +10,3 @@ position = Vector2(125, 75)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(0, -60)
-
-[node name="Person" parent="." instance=ExtResource("3_lbhrr")]
-position = Vector2(15, 101)

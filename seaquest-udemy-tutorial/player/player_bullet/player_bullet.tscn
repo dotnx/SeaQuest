@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://g5l8kuyx5neh"]
+[gd_scene load_steps=6 format=3 uid="uid://g5l8kuyx5neh"]
 
 [ext_resource type="Texture2D" uid="uid://useogs52hhb1" path="res://player/player_bullet/player_bullet.png" id="1_bflbm"]
+[ext_resource type="Script" uid="uid://dw5oq4xhlo431" path="res://player/player_bullet/player_bullet.gd" id="2_it4l8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_it4l8"]
 atlas = ExtResource("1_bflbm")
@@ -25,6 +26,8 @@ animations = [{
 }]
 
 [node name="PlayerBullet" type="AnimatedSprite2D"]
+position = Vector2(13, 78)
 sprite_frames = SubResource("SpriteFrames_3paff")
 autoplay = "default"
 offset = Vector2(-0.5, 0)
+script = ExtResource("2_it4l8")

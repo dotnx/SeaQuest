@@ -7,6 +7,7 @@ var state = "default"
 
 const SPEED = Vector2(125, 90)
 const OXYGEN_DECREASE_SPEED = 2.5
+const OXYGEN_INCREASE_SPEED = 60
 const BULLET_OFFSET = 7
 const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 
@@ -23,6 +24,10 @@ func _process(delta):
 		direction_follows_input()
 		process_shooting()
 		lose_oxygen()
+	elif state == "less_people_refuel":
+		oxygen_refuel()
+	elif state == "people_refuel":
+		oxygen_refuel()
 
 func _physics_process(delta):
 	if state == "default":
@@ -55,7 +60,14 @@ func process_shooting():
 		can_shoot = false
 
 func lose_oxygen():
-	Global.oxygen_level -= OXYGEN_DECREASE_SPEED * get_process_delta_time()
+	var oxygen_decrease_delta = OXYGEN_DECREASE_SPEED * get_process_delta_time()
+	Global.oxygen_level = move_toward(Global.oxygen_level, 0, oxygen_decrease_delta)
+
+func oxygen_refuel():
+	Global.oxygen_level += OXYGEN_INCREASE_SPEED * get_process_delta_time()
+	
+	if Global.oxygen_level > 99:
+		state = "default"
 
 func movement():
 	global_position += velocity * SPEED * get_physics_process_delta_time()

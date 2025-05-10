@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://b515l5apptd5v"]
+[gd_scene load_steps=9 format=3 uid="uid://b515l5apptd5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://uwr0cei80stn" path="res://user_interface/people-count/people_count.tscn" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://cic3ajpj5ybsk" path="res://enemies/enemy_spawner/enemy_spawner.tscn" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://n06l515vp5t7" path="res://scenes/game/oxygen_zone.gd" id="3_u5sy4"]
 [ext_resource type="Texture2D" uid="uid://ckpolmhq3w8ai" path="res://user_interface/oxygen-bar/oxygen_bar_under.png" id="4_iywne"]
 [ext_resource type="Texture2D" uid="uid://d0rd57id7512g" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://dka0o6qvma16" path="res://user_interface/oxygen-bar/oxygen_bar.gd" id="6_p57ef"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(262, 20)
 
 [node name="Game" type="Node"]
 
@@ -14,6 +18,13 @@ position = Vector2(125, 75)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_lnu2h")]
 position = Vector2(0, -60)
+
+[node name="OxygenZone" type="Area2D" parent="."]
+position = Vector2(128, 43)
+script = ExtResource("3_u5sy4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OxygenZone"]
+shape = SubResource("RectangleShape2D_p57ef")
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 
@@ -38,3 +49,5 @@ stretch_margin_right = 4
 texture_under = ExtResource("4_iywne")
 texture_progress = ExtResource("5_p57ef")
 script = ExtResource("6_p57ef")
+
+[connection signal="area_entered" from="OxygenZone" to="OxygenZone" method="_on_area_entered"]

@@ -26,7 +26,6 @@ animations = [{
 }]
 
 [node name="PlayerBullet" type="AnimatedSprite2D"]
-position = Vector2(13, 78)
 sprite_frames = SubResource("SpriteFrames_3paff")
 autoplay = "default"
 offset = Vector2(-0.5, 0)

@@ -24,6 +24,10 @@ func _process(delta):
 		bullet_instance.global_position = global_position
 		get_tree().current_scene.add_child(bullet_instance)
 		
+		if flip_h == true:
+			bullet_instance.velocity.x = -1
+			bullet_instance.flip_h = true
+		
 		reload_timer.start()
 		can_shoot = false
 

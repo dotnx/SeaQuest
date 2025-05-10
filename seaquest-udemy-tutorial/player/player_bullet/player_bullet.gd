@@ -6,3 +6,6 @@ const SPEED = 300
 
 func _physics_process(delta):
 	global_position += velocity * SPEED * delta
+
+func _screen_exited():
+	queue_free()

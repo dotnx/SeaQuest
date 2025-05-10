@@ -28,22 +28,22 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_it4l8"]
 size = Vector2(15, 8)
 
-[node name="PlayerBullet" type="AnimatedSprite2D"]
+[node name="PlayerBullet" type="Area2D" groups=["PlayerBullet"]]
+script = ExtResource("2_it4l8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3paff")
 autoplay = "default"
 frame = 1
 frame_progress = 1.0
 offset = Vector2(-0.5, 0)
-script = ExtResource("2_it4l8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_it4l8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-1.19209e-07, 1.19209e-07)
 scale = Vector2(0.7, 0.7)
 
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_it4l8")
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_screen_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

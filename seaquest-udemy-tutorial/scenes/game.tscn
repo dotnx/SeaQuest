@@ -49,7 +49,6 @@ subdivide_depth = 1
 position = Vector2(125, 75)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(0, -60)
 
 [node name="OxygenZone" type="Area2D" parent="."]
 position = Vector2(128, 43)

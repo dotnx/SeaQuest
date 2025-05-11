@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b515l5apptd5v"]
+[gd_scene load_steps=22 format=3 uid="uid://b515l5apptd5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://hl7jfr1ksvkm" path="res://scenes/game/camera_2d.gd" id="1_vtaks"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ckpolmhq3w8ai" path="res://user_interface/oxygen-bar/oxygen_bar_under.png" id="4_iywne"]
 [ext_resource type="Texture2D" uid="uid://d0rd57id7512g" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://dka0o6qvma16" path="res://user_interface/oxygen-bar/oxygen_bar.gd" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://bxwifbl1un6bp" path="res://scenes/environment/sand_bottom.png" id="6_trtic"]
 [ext_resource type="FontFile" uid="uid://dihskb2wxrwmn" path="res://user_interface/fonts/font_1.ttf" id="9_0tnpc"]
 [ext_resource type="FontFile" uid="uid://b77bhgf7tbv7x" path="res://user_interface/fonts/font_2.ttf" id="11_kvpfn"]
 [ext_resource type="Script" uid="uid://drcm6q4dnaf37" path="res://user_interface/points_display/points_display.gd" id="12_dinhu"]
@@ -105,6 +106,11 @@ material = SubResource("ShaderMaterial_0tnpc")
 position = Vector2(127, 178)
 scale = Vector2(0.7, 1)
 mesh = SubResource("QuadMesh_dinhu")
+
+[node name="Ground" type="Sprite2D" parent="Environment"]
+z_index = 10
+position = Vector2(125, 213)
+texture = ExtResource("6_trtic")
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 

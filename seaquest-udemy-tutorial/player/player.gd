@@ -22,6 +22,7 @@ const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 
 @onready var reload_timer = $ReloadTimer
 @onready var sprite = $AnimatedSprite2D
+@onready var decrease_people_timer = $DecreasePeopleTimer
 
 func _ready():
 	GameEvent.connect("full_crew_oxygen_refuel", Callable(self, "_full_crew_oxygen_refuel"))
@@ -33,11 +34,10 @@ func _process(delta):
 		direction_follows_input()
 		process_shooting()
 		lose_oxygen()
-	elif state == "less_people_refuel":
+	elif state == "oxygen_refuel":
 		oxygen_refuel()
 		move_to_shore_line()
 	elif state == "people_refuel":
-		oxygen_refuel()
 		move_to_shore_line()
 
 func _physics_process(delta):
@@ -96,8 +96,22 @@ func clamp_position():
 func _on_reload_timer_timeout():
 	can_shoot = true
 
+func remove_one_person():
+	if Global.saved_people_count > 0:
+		Global.saved_people_count -= 1
+		GameEvent.emit_signal("update_collected_people_count")
+
 func _full_crew_oxygen_refuel():
 	state = "people_refuel"
+	decrease_people_timer.start()
 
 func _less_people_oxygen_refuel():
-	state = "less_people_refuel"
+	state = "oxygen_refuel"
+	remove_one_person()
+	
+func _on_decrease_people_timer_timeout():
+	remove_one_person()
+	
+	if Global.saved_people_count <= 0:
+		state = "oxygen_refuel"
+		decrease_people_timer.stop()

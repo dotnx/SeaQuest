@@ -2,7 +2,9 @@ extends Area2D
 
 var velocity = Vector2(1, 0)
 var points_value = 30
-var current_state = "default"
+
+enum states {DEFAULT, PAUSED}
+var current_state = states.DEFAULT
 
 const SPEED = 25
 
@@ -12,7 +14,7 @@ func _ready():
 	GameEvent.connect("pause_enemies", Callable(self, "_pause"))
 
 func _physics_process(delta):
-	if current_state == "default":
+	if current_state == states.DEFAULT:
 		global_position += velocity * SPEED * delta
 
 func _process(delta):
@@ -33,6 +35,6 @@ func _on_area_entered(area):
 
 func _pause(pause):
 	if pause:
-		current_state = "paused"
+		current_state = states.PAUSED
 	else:
-		current_state = "default"
+		current_state = states.DEFAULT

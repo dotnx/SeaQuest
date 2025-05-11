@@ -45,6 +45,7 @@ func _physics_process(delta):
 		movement()
 	
 	clamp_position()
+	GameEvent.emit_signal("camera_follow_player", global_position.y)
 
 func process_movement_input():
 	velocity.x = Input.get_axis("move_left", "move_right")

@@ -4,3 +4,5 @@ signal update_collected_people_count
 
 signal full_crew_oxygen_refuel
 signal less_people_oxygen_refuel
+
+signal camera_follow_player(y_position)

@@ -6,14 +6,19 @@ const MOVEMENT_AMPLITUDE = 0.5
 
 var velocity = Vector2(1, 0)
 var random_offset = randf_range(0, 10)
+var current_state = "default"
 
 var point_value = 25
 
 @onready var sprite = $AnimatedSprite2D
 
+func _ready():
+	GameEvent.connect("pause_enemies", Callable(self, "_pause"))
+
 func _physics_process(delta):
-	velocity.y = sin(global_position.x * MOVEMENT_FREQUENCY + random_offset) * MOVEMENT_AMPLITUDE
-	global_position += velocity * SPEED * delta
+	if current_state == "default":
+		velocity.y = sin(global_position.x * MOVEMENT_FREQUENCY + random_offset) * MOVEMENT_AMPLITUDE
+		global_position += velocity * SPEED * delta
 
 func _process(delta):
 	if global_position.x > Global.SCREEN_BOUND_MAX_X or global_position.x < Global.SCREEN_BOUND_MIN_X:
@@ -31,4 +36,10 @@ func _on_area_entered(area):
 		queue_free()
 	
 	if area.is_in_group("Player"):
-		GameEvent.emit_signal("game_over")
+		area.death()
+
+func _pause(pause):
+	if pause:
+		current_state = "paused"
+	else:
+		current_state = "default"

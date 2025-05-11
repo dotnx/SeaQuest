@@ -10,6 +10,9 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("shoot") and visible == true:
+		Global.current_points = 0
+		Global.saved_people_count = 0
+		Global.oxygen_level = 100
 		get_tree().reload_current_scene()
 
 func _activate_game_over():

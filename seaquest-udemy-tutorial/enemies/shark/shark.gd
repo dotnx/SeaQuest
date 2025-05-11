@@ -7,6 +7,8 @@ const MOVEMENT_AMPLITUDE = 0.5
 var velocity = Vector2(1, 0)
 var random_offset = randf_range(0, 10)
 
+var point_value = 25
+
 @onready var sprite = $AnimatedSprite2D
 
 func _physics_process(delta):
@@ -19,6 +21,8 @@ func flip_direction():
 
 func _on_area_entered(area):
 	if area.is_in_group("PlayerBullet"):
+		Global.current_points += point_value
+		GameEvent.emit_signal("update_points")
 		area.queue_free()
 		queue_free()
 

@@ -1,6 +1,7 @@
 extends Area2D
 
 var velocity = Vector2(1, 0)
+var points_value = 30
 
 const SPEED = 25
 
@@ -17,4 +18,6 @@ func _on_area_entered(area):
 	if area.is_in_group("Player"):
 		Global.saved_people_count += 1
 		GameEvent.emit_signal("update_collected_people_count")
+		Global.current_points += points_value
+		GameEvent.emit_signal("update_points")
 		queue_free()

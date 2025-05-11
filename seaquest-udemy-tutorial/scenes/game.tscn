@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b515l5apptd5v"]
+[gd_scene load_steps=20 format=3 uid="uid://b515l5apptd5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://hl7jfr1ksvkm" path="res://scenes/game/camera_2d.gd" id="1_vtaks"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://d0rd57id7512g" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://dka0o6qvma16" path="res://user_interface/oxygen-bar/oxygen_bar.gd" id="6_p57ef"]
 [ext_resource type="FontFile" uid="uid://dihskb2wxrwmn" path="res://user_interface/fonts/font_1.ttf" id="9_0tnpc"]
+[ext_resource type="FontFile" uid="uid://b77bhgf7tbv7x" path="res://user_interface/fonts/font_2.ttf" id="11_kvpfn"]
+[ext_resource type="Script" uid="uid://drcm6q4dnaf37" path="res://user_interface/points_display/points_display.gd" id="12_dinhu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(262, 20)
@@ -147,5 +149,20 @@ theme_override_font_sizes/font_size = 8
 text = "Oxygen"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="PointsDisplay" type="Label" parent="UserInterface"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 2.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.12549, 0.0862745, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("11_kvpfn")
+theme_override_font_sizes/font_size = 10
+text = "0
+"
+horizontal_alignment = 1
+script = ExtResource("12_dinhu")
 
 [connection signal="area_entered" from="OxygenZone" to="OxygenZone" method="_on_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b515l5apptd5v"]
+[gd_scene load_steps=17 format=3 uid="uid://b515l5apptd5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://uwr0cei80stn" path="res://user_interface/people-count/people_count.tscn" id="3_lbhrr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ckpolmhq3w8ai" path="res://user_interface/oxygen-bar/oxygen_bar_under.png" id="4_iywne"]
 [ext_resource type="Texture2D" uid="uid://d0rd57id7512g" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_p57ef"]
 [ext_resource type="Script" uid="uid://dka0o6qvma16" path="res://user_interface/oxygen-bar/oxygen_bar.gd" id="6_p57ef"]
+[ext_resource type="FontFile" uid="uid://dihskb2wxrwmn" path="res://user_interface/fonts/font_1.ttf" id="9_0tnpc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
 size = Vector2(262, 20)
@@ -109,9 +110,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -50.0
-offset_top = -18.0
+offset_top = -22.0
 offset_right = 50.0
-offset_bottom = -9.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0
 nine_patch_stretch = true
@@ -120,5 +121,26 @@ stretch_margin_right = 4
 texture_under = ExtResource("4_iywne")
 texture_progress = ExtResource("5_p57ef")
 script = ExtResource("6_p57ef")
+
+[node name="Label" type="Label" parent="UserInterface/OxygenBar"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.5
+offset_top = -19.5
+offset_right = 29.5
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0.12549, 0.0862745, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("9_0tnpc")
+theme_override_font_sizes/font_size = 8
+text = "Oxygen"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="area_entered" from="OxygenZone" to="OxygenZone" method="_on_area_entered"]

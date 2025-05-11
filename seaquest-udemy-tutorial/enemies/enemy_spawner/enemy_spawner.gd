@@ -7,6 +7,11 @@ var used_spawn_points = []
 
 @onready var left = $Left
 @onready var right = $Right
+@onready var spawn_enemy_timer = $SpawnEnemyTimer
+@onready var spawn_person_timer = $SpawnPersonTimer
+
+func _ready():
+	GameEvent.connect("pause_enemies", Callable(self, "_pause"))
 
 # new wave spawned
 func _on_spawn_enemy_timer_timeout():
@@ -60,3 +65,11 @@ func _on_spawn_person_timer_timeout():
 	var spawn_position = selected_spawn_point.global_position
 	
 	person_instance.global_position = spawn_position
+
+func _pause(pause):
+	if pause:
+		spawn_enemy_timer.stop()
+		spawn_person_timer.stop()
+	elif !pause:
+		spawn_enemy_timer.start()
+		spawn_person_timer.start()

@@ -1,6 +1,7 @@
 extends Control
 
 @onready var current_score_label = $CurrentScoreLabel
+@onready var high_score_label = $HighScoreLabel
 @onready var game_over_delay_timer = $GameOverDelay
 
 func _ready():
@@ -17,6 +18,11 @@ func _process(delta):
 
 func _activate_game_over():
 	current_score_label.text = "Score " + str(Global.current_points)
+	
+	if Global.current_points > Global.highscore:
+			Global.highscore = Global.current_points
+	
+	high_score_label.text = "Highscore " + str(Global.highscore)
 	game_over_delay_timer.start()
 
 func _on_game_over_delay_timeout():

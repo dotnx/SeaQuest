@@ -27,13 +27,15 @@ const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 func _ready():
 	GameEvent.connect("full_crew_oxygen_refuel", Callable(self, "_full_crew_oxygen_refuel"))
 	GameEvent.connect("less_people_oxygen_refuel", Callable(self, "_less_people_oxygen_refuel"))
-
+	GameEvent.connect("game_over", Callable(self, "_game_over"))
+	
 func _process(delta):
 	if state == "default":
 		process_movement_input()
 		direction_follows_input()
 		process_shooting()
 		lose_oxygen()
+		death_when_reaches_zero()
 	elif state == "oxygen_refuel":
 		oxygen_refuel()
 		move_to_shore_line()
@@ -83,6 +85,14 @@ func oxygen_refuel():
 	if Global.oxygen_level > 99:
 		state = "default"
 
+func death_when_reaches_zero():
+	if Global.oxygen_level <= 0:
+		GameEvent.emit_signal("game_over")
+
+func death_when_refueling_while_full():
+	if Global.oxygen_level > 80:
+		GameEvent.emit_signal("game_over")
+
 func move_to_shore_line():
 	var move_speed = OXYGEN_REFUEL_MOVE_SPEED * get_process_delta_time()
 	global_position.y = move_toward(global_position.y, OXYGEN_REFUEL_Y_POSITION, move_speed)
@@ -105,10 +115,12 @@ func remove_one_person():
 func _full_crew_oxygen_refuel():
 	state = "people_refuel"
 	decrease_people_timer.start()
+	death_when_refueling_while_full()
 
 func _less_people_oxygen_refuel():
 	state = "oxygen_refuel"
 	remove_one_person()
+	death_when_refueling_while_full()
 	
 func _on_decrease_people_timer_timeout():
 	remove_one_person()
@@ -116,3 +128,6 @@ func _on_decrease_people_timer_timeout():
 	if Global.saved_people_count <= 0:
 		state = "oxygen_refuel"
 		decrease_people_timer.stop()
+
+func _game_over():
+	queue_free()

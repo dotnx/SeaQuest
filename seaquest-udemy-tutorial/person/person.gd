@@ -10,6 +10,10 @@ const SPEED = 25
 func _physics_process(delta):
 	global_position += velocity * SPEED * delta
 
+func _process(delta):
+	if global_position.x > Global.SCREEN_BOUND_MAX_X or global_position.x < Global.SCREEN_BOUND_MIN_X:
+		queue_free()
+
 func flip_direction():
 	velocity = -velocity
 	sprite.flip_h = !sprite.flip_h

@@ -3,6 +3,7 @@ extends Node2D
 var previous_amount = 0
 
 @onready var progress_bar = $TextureProgress
+@onready var flash_timer = $FlashTimer
 
 func _process(delta):
 	progress_bar.value = Global.oxygen_level
@@ -36,3 +37,8 @@ func _physics_process(delta):
 func alert(scale_value, rotation_value):
 	scale = Vector2(scale_value, scale_value)
 	rotation_degrees = randf_range(-rotation_value, rotation_value)
+	modulate = Color(50, 50, 50)
+	flash_timer.start()
+
+func _on_flash_timer_timeout():
+	modulate = Color(1, 1, 1)

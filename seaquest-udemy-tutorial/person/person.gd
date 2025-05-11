@@ -7,6 +7,8 @@ enum states {DEFAULT, PAUSED}
 var current_state = states.DEFAULT
 
 const SPEED = 25
+const SaveSound = preload("res://person/saving_person.ogg")
+const DeathSound = preload("res://person/person_death.ogg")
 
 @onready var sprite = $AnimatedSprite2D
 
@@ -31,6 +33,13 @@ func _on_area_entered(area):
 		GameEvent.emit_signal("update_collected_people_count")
 		Global.current_points += points_value
 		GameEvent.emit_signal("update_points")
+		
+		SoundManager.play_sound(SaveSound)
+		
+		queue_free()
+	elif area.is_in_group("PlayerBullet"):
+		SoundManager.play_sound(DeathSound)
+		area.queue_free()
 		queue_free()
 
 func _pause(pause):

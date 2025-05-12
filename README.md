@@ -16,6 +16,14 @@ The original course does **not** include an official GitHub repository, so I cre
 
 This repository is intended as a learning aid for other students of the course. It includes all code and assets used in the project, faithfully recreated from the lessons.
 
+## Repo Structure
+
+- Each **course section** has its own branch (`section-01-project-setup`, `section-02-developing-the-player`, etc.)  
+- Each **video lesson** is a separate commit within its respective branch  
+- The final version of the project is available in the `main` branch (merged from all sections)  
+
+This setup is intended to make it easy to follow the course step-by-step or explore the completed project directly.
+
 ## Notes
 
 - All rights to course content belong to **Parker Anderson**.

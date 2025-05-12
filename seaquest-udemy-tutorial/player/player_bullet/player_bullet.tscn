@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://g5l8kuyx5neh"]
+
+[ext_resource type="Texture2D" uid="uid://useogs52hhb1" path="res://player/player_bullet/player_bullet.png" id="1_bflbm"]
+[ext_resource type="Script" uid="uid://dw5oq4xhlo431" path="res://player/player_bullet/player_bullet.gd" id="2_it4l8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it4l8"]
+atlas = ExtResource("1_bflbm")
+region = Rect2(0, 0, 18, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wty2e"]
+atlas = ExtResource("1_bflbm")
+region = Rect2(18, 0, 18, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3paff"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it4l8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wty2e")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_it4l8"]
+size = Vector2(15, 8)
+
+[node name="PlayerBullet" type="Area2D" groups=["PlayerBullet"]]
+z_index = 1
+script = ExtResource("2_it4l8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3paff")
+autoplay = "default"
+frame = 1
+frame_progress = 1.0
+offset = Vector2(-0.5, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_it4l8")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.19209e-07, 1.19209e-07)
+scale = Vector2(0.7, 0.7)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

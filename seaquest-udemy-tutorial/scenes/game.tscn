@@ -1,0 +1,256 @@
+[gd_scene load_steps=22 format=3 uid="uid://b515l5apptd5v"]
+
+[ext_resource type="PackedScene" uid="uid://bhq37rpcnl1mi" path="res://player/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://hl7jfr1ksvkm" path="res://scenes/game/camera_2d.gd" id="1_vtaks"]
+[ext_resource type="PackedScene" uid="uid://uwr0cei80stn" path="res://user_interface/people-count/people_count.tscn" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://cic3ajpj5ybsk" path="res://enemies/enemy_spawner/enemy_spawner.tscn" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://n06l515vp5t7" path="res://scenes/game/oxygen_zone.gd" id="3_u5sy4"]
+[ext_resource type="Shader" uid="uid://cudr1n6mugr81" path="res://scenes/environment/water_shader.gdshader" id="4_gee14"]
+[ext_resource type="Texture2D" uid="uid://ckpolmhq3w8ai" path="res://user_interface/oxygen-bar/oxygen_bar_under.png" id="4_iywne"]
+[ext_resource type="Texture2D" uid="uid://d0rd57id7512g" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://dka0o6qvma16" path="res://user_interface/oxygen-bar/oxygen_bar.gd" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://bxwifbl1un6bp" path="res://scenes/environment/sand_bottom.png" id="6_trtic"]
+[ext_resource type="FontFile" uid="uid://dihskb2wxrwmn" path="res://user_interface/fonts/font_1.ttf" id="9_0tnpc"]
+[ext_resource type="FontFile" uid="uid://b77bhgf7tbv7x" path="res://user_interface/fonts/font_2.ttf" id="11_kvpfn"]
+[ext_resource type="Script" uid="uid://drcm6q4dnaf37" path="res://user_interface/points_display/points_display.gd" id="12_dinhu"]
+[ext_resource type="Script" uid="uid://c3vrk1y177l0c" path="res://user_interface/game_over/game_over.gd" id="13_kvuet"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(262, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0tnpc"]
+shader = ExtResource("4_gee14")
+shader_parameter/strength = Vector2(1.25, 1.25)
+shader_parameter/speed = 1.0
+shader_parameter/seed = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtaks"]
+size = Vector2(400, 4)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_gee14"]
+size = Vector2(400, 35)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_0tnpc"]
+size = Vector2(400, 40)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_kvpfn"]
+size = Vector2(400, 75)
+subdivide_width = 8
+subdivide_depth = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_dinhu"]
+size = Vector2(400, 75)
+subdivide_width = 8
+subdivide_depth = 1
+
+[node name="Game" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(128, 70)
+script = ExtResource("1_vtaks")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(125, 75)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_lnu2h")]
+
+[node name="OxygenZone" type="Area2D" parent="."]
+position = Vector2(128, 43)
+script = ExtResource("3_u5sy4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OxygenZone"]
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Environment"]
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 39)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_vtaks")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0.0470588, 0.901961, 0.94902, 1)
+z_index = -11
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 55)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_gee14")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0, 0.596078, 0.858824, 1)
+z_index = -11
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 65)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_0tnpc")
+
+[node name="MeshInstance2D4" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0.117647, 0.341176, 0.611765, 1)
+z_index = -12
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 107)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_kvpfn")
+
+[node name="MeshInstance2D5" type="MeshInstance2D" parent="Environment"]
+modulate = Color(0.12549, 0.207843, 0.384314, 1)
+z_index = -13
+material = SubResource("ShaderMaterial_0tnpc")
+position = Vector2(127, 178)
+scale = Vector2(0.7, 1)
+mesh = SubResource("QuadMesh_dinhu")
+
+[node name="Ground" type="Sprite2D" parent="Environment"]
+z_index = 10
+position = Vector2(125, 213)
+texture = ExtResource("6_trtic")
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+
+[node name="PeopleCount" parent="UserInterface" instance=ExtResource("3_lbhrr")]
+position = Vector2(10, 10)
+
+[node name="OxygenBar" type="Node2D" parent="UserInterface"]
+position = Vector2(128, 127)
+script = ExtResource("6_p57ef")
+
+[node name="TextureProgress" type="TextureProgressBar" parent="UserInterface/OxygenBar"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -4.5
+offset_right = 50.0
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_right = 4
+texture_under = ExtResource("4_iywne")
+texture_progress = ExtResource("5_p57ef")
+
+[node name="Label" type="Label" parent="UserInterface/OxygenBar/TextureProgress"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.5
+offset_top = -19.5
+offset_right = 29.5
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0.12549, 0.0862745, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("9_0tnpc")
+theme_override_font_sizes/font_size = 8
+text = "Oxygen"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FlashTimer" type="Timer" parent="UserInterface/OxygenBar"]
+wait_time = 0.1
+one_shot = true
+
+[node name="PointsDisplay" type="Label" parent="UserInterface"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 2.0
+offset_bottom = 37.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.12549, 0.0862745, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("11_kvpfn")
+theme_override_font_sizes/font_size = 10
+text = "0
+"
+horizontal_alignment = 1
+script = ExtResource("12_dinhu")
+
+[node name="GameOver" type="Control" parent="UserInterface"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_kvuet")
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.141176, 0.141176, 0.266667, 1)
+
+[node name="GameOverLabel" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -23.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_0tnpc")
+text = "Game Over!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentScoreLabel" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 8.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_0tnpc")
+theme_override_font_sizes/font_size = 8
+text = "Score 100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="UserInterface/GameOver"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 27.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_0tnpc")
+theme_override_font_sizes/font_size = 8
+text = "Highscore 100
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverDelay" type="Timer" parent="UserInterface/GameOver"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="area_entered" from="OxygenZone" to="OxygenZone" method="_on_area_entered"]
+[connection signal="timeout" from="UserInterface/OxygenBar/FlashTimer" to="UserInterface/OxygenBar" method="_on_flash_timer_timeout"]
+[connection signal="timeout" from="UserInterface/GameOver/GameOverDelay" to="UserInterface/GameOver" method="_on_game_over_delay_timeout"]

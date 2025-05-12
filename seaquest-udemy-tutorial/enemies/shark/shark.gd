@@ -4,6 +4,8 @@ const SPEED = 50
 const MOVEMENT_FREQUENCY = 0.15
 const MOVEMENT_AMPLITUDE = 0.5
 const DeathSound = preload("res://enemies/shark/shark_death.ogg")
+const ObjectPiece = preload("res://particles/object_piece/object_piece.tscn")
+const PIECE_COUNT = 2
 
 var velocity = Vector2(1, 0)
 var random_offset = randf_range(0, 10)
@@ -35,12 +37,23 @@ func _on_area_entered(area):
 	if area.is_in_group("PlayerBullet"):
 		Global.current_points += point_value
 		GameEvent.emit_signal("update_points")
+		
 		SoundManager.play_sound(DeathSound)
+		instance_death_pieces()
+		
 		area.queue_free()
 		queue_free()
 	
 	if area.is_in_group("Player"):
 		area.death()
+
+func instance_death_pieces():
+	for i in range(PIECE_COUNT):
+		var piece_instance = ObjectPiece.instantiate()
+		piece_instance.frame = i
+		
+		get_tree().current_scene.add_child(piece_instance)
+		piece_instance.global_position = global_position
 
 func _pause(pause):
 	if pause:

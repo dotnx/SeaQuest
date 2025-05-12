@@ -1,7 +1,7 @@
 extends Area2D
 
 var velocity = Vector2(1, 0)
-var points_value = 30
+var point_value = 30
 
 enum states {DEFAULT, PAUSED}
 var current_state = states.DEFAULT
@@ -9,6 +9,7 @@ var current_state = states.DEFAULT
 const SPEED = 25
 const SaveSound = preload("res://person/saving_person.ogg")
 const DeathSound = preload("res://person/person_death.ogg")
+const PointValuePopup = preload("res://user_interface/point_value_popup/point_value_popup.tscn")
 
 @onready var sprite = $AnimatedSprite2D
 
@@ -31,16 +32,24 @@ func _on_area_entered(area):
 	if area.is_in_group("Player"):
 		Global.saved_people_count += 1
 		GameEvent.emit_signal("update_collected_people_count")
-		Global.current_points += points_value
+		Global.current_points += point_value
 		GameEvent.emit_signal("update_points")
 		
 		SoundManager.play_sound(SaveSound)
+		instance_point_value_popup()
 		
 		queue_free()
 	elif area.is_in_group("PlayerBullet"):
 		SoundManager.play_sound(DeathSound)
 		area.queue_free()
 		queue_free()
+
+func instance_point_value_popup():
+	var point_value_popup_instance = PointValuePopup.instantiate()
+	
+	point_value_popup_instance.value = point_value
+	get_tree().current_scene.add_child(point_value_popup_instance)
+	point_value_popup_instance.global_position = global_position
 
 func _pause(pause):
 	if pause:

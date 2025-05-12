@@ -20,7 +20,8 @@ var point_value = 25
 
 func _ready():
 	GameEvent.connect("pause_enemies", Callable(self, "_pause"))
-
+	GameEvent.connect("kill_all_enemies", Callable(self, "_death"))
+	
 func _physics_process(delta):
 	if current_state == states.DEFAULT:
 		velocity.y = sin(global_position.x * MOVEMENT_FREQUENCY + random_offset) * MOVEMENT_AMPLITUDE
@@ -36,16 +37,8 @@ func flip_direction():
 
 func _on_area_entered(area):
 	if area.is_in_group("PlayerBullet"):
-		Global.current_points += point_value
-		GameEvent.emit_signal("update_points")
-		
-		SoundManager.play_sound(DeathSound)
-		
-		instance_death_pieces()
-		instance_point_popup()
-		
 		area.queue_free()
-		queue_free()
+		_death()
 	
 	if area.is_in_group("Player"):
 		area.death()
@@ -64,6 +57,17 @@ func instance_death_pieces():
 		
 		get_tree().current_scene.add_child(piece_instance)
 		piece_instance.global_position = global_position
+
+func _death():
+	Global.current_points += point_value
+	GameEvent.emit_signal("update_points")
+	
+	SoundManager.play_sound(DeathSound)
+	
+	instance_death_pieces()
+	instance_point_popup()
+	
+	queue_free()
 
 func _pause(pause):
 	if pause:

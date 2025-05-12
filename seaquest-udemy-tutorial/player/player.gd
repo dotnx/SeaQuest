@@ -2,6 +2,7 @@ extends Area2D
 
 var velocity = Vector2(0, 0)
 var can_shoot = true
+var is_shooting = false
 
 enum states {DEFAULT, PAUSED, OXYGEN_REFUEL, PEOPLE_REFUEL}
 var state = states.DEFAULT
@@ -63,6 +64,9 @@ func process_movement_input():
 	velocity = velocity.normalized()
 
 func direction_follows_input():
+	if is_shooting == true:
+		return
+		
 	if velocity.x > 0:
 		sprite.flip_h = false
 	elif velocity.x < 0:
@@ -83,6 +87,11 @@ func process_shooting():
 		
 		reload_timer.start()
 		can_shoot = false
+		
+	if Input.is_action_pressed("shoot"):
+		is_shooting = true
+	else:
+		is_shooting = false
 
 func lose_oxygen():
 	var oxygen_decrease_delta = OXYGEN_DECREASE_SPEED * get_process_delta_time()
